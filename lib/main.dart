@@ -49,24 +49,29 @@ class _QuizPageState extends State<QuizPage> {
       ));
     }
     if (quizBrain.isFinished()){
-      Alert(
-        context: context,
-        type: AlertType.error,
-        title: "Quiz Ended!",
-        desc: "Restart the Quiz...",
-        buttons: [
-          DialogButton(
-            child: Text(
-              "COOL",
-              style: TextStyle(color: Colors.white, fontSize: 20),
-            ),
-            onPressed: () => Navigator.pop(context),
-            width: 120,
-          )
-        ],
-      ).show();
+      Future.delayed(const Duration(milliseconds: 300), (){
+        Alert(
+          context: context,
+          type: AlertType.error,
+          title: "Quiz Ended!",
+          desc: "Restart the Quiz...",
+          buttons: [
+            DialogButton(
+              child: Text(
+                "COOL",
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
+              onPressed: () => Navigator.pop(context),
+              width: 120,
+            )
+          ],
+        ).show();
+
+        setState(() {
+          scoreKeeper = [];
+        });
+      });
       quizBrain.reset();
-      scoreKeeper = [];
     }
     quizBrain.nextQuestion();
     });
